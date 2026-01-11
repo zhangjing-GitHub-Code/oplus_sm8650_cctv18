@@ -443,6 +443,9 @@ jobs:
           cd ./common
           git apply -p1 < 001-lz4.patch || true
           patch -p1 < 002-zstd.patch || true
+          echo "正在启用zRAM Writeback"
+          echo "CONFIG_ZRAM_WRITEBACK=y" >> ./arch/arm64/configs/gki_defconfig
+
 
       - name: 应用 lz4kd 补丁
         if: inputs.lz4kd_enable
