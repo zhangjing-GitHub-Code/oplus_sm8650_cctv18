@@ -21,6 +21,11 @@ on:
           - 'mksu'
           - 'ksu'
           - 'none'
+      ksu_commitid:
+        description: 'KSU对应分支提交哈希，非开发者请留空！！'
+        required: false
+        type: string
+        default: ''
       susfs_enable:
         description: '是否开启susfs(用于增强隐藏环境挂载功能; 可能轻微增加耗电，上游更新导致不稳定时或不需要可关闭)'
         required: true
@@ -183,9 +188,16 @@ jobs:
         run: |
           # 进入内核工作目录
           cd kernel_workspace
+          commit_id="${{ github.event.inputs.ksu_commitid }}"
+          commit_id=$(echo $commit_id|tr -d '[:space:]')
           if [[ ${{ github.event.inputs.ksu_type }} == "sukisu" ]]; then
             echo "正在配置SukiSU Ultra..."
-            curl -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU-Ultra/refs/heads/main/kernel/setup.sh" | bash -s builtin
+            if [ ! -n "$commit_id" ];then
+              commit_id=builtin
+            else
+              echo "使用指定提交哈希: $commit_id"
+            fi
+            curl -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU-Ultra/refs/heads/main/kernel/setup.sh" | bash -s $commit_id
             cd ./KernelSU
             # 获取当前 Git 提交的短哈希 (8位)
             GIT_COMMIT_HASH=$(git rev-parse --short=8 HEAD)
