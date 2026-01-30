@@ -455,10 +455,10 @@ jobs:
           cd ./common
           git apply -p1 < 001-lz4.patch || true
           patch -p1 < 002-zstd.patch || true
-          echo "正在启用zRAM Writeback"
-          echo "CONFIG_ZRAM_WRITEBACK=y" >> ./arch/arm64/configs/gki_defconfig
-          echo "正在启用zSwap"
-          cat <<E >>./arch/arm64/configs/gki_defconfig
+          echo "不强制启用zRAM Writeback"
+          # echo "CONFIG_ZRAM_WRITEBACK=y" >> ./arch/arm64/configs/gki_defconfig
+          echo "不能强行启用zSwap, 会无限第一屏"
+          cat <<E >>/dev/null
           CONFIG_ZSWAP=y
           CONFIG_ZSWAP_SHRINKER_DEFAULT_ON=y
           CONFIG_ZSWAP_COMPRESSOR_DEFAULT_LZ4=y
