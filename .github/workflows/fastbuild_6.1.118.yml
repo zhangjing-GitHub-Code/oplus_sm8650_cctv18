@@ -320,7 +320,7 @@ jobs:
           elif [[ ${{ github.event.inputs.ksu_type }} == "ksunext" ]]; then
             echo "正在配置KernelSU Next..."
             if [ ! -n "$commit_id" ];then
-              commit_id=dev-susfs
+              commit_id=dev_susfs
             else
               echo "使用指定提交哈希: $commit_id"
             fi
