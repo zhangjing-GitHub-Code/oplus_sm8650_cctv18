@@ -865,6 +865,13 @@ jobs:
         with:
           name: ccache-debug-log
           path: ${{ github.workspace }}/kernel_workspace/ccache.log
+      - name: 强制保存 Ccache
+        uses: actions/cache/save@v5
+        if: always() && steps.ccache-restore.outputs.cache-hit != 'true'
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-neov3-6.1.118-${{ runner.os }}-main
+Re
 
       - name: 上传 ZIP 工件
         uses: actions/upload-artifact@v4
