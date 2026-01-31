@@ -351,7 +351,7 @@ jobs:
         if: inputs.susfs_enable
         run: |
           cd kernel_workspace
-          commit_id="${{ github.event.inputs.ksu_commitid }}"
+          commit_id="${{ github.event.inputs.susfs_commitid }}"
           commit_id=$(echo $commit_id|tr -d '[:space:]')
           if [[ ${{ github.event.inputs.ksu_type }} == "sukisu" ]]; then
             echo "正在添加SukiSU Ultra补丁..."
