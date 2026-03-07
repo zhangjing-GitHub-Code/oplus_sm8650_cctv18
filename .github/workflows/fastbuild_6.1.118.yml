@@ -405,7 +405,7 @@ jobs:
           CONFIG_ZSWAP_ZPOOL_DEFAULT="zbud"
           E
           echo 拉黑Hyrbidswap...
-          echo "
+          patch -p1 <<EOF
           diff --color -ur a/kernel/module/main.c b/kernel/module/main.c
           --- a/kernel/module/main.c	2026-03-07 14:11:26.000000000 +0800
           +++ b/kernel/module/main.c	2026-03-07 14:07:56.000000000 +0800
@@ -457,7 +457,7 @@ jobs:
            
            	if (!module_blacklist)
            		return false;
-          "|patch -p1
+          EOF
 
       - name: 应用 lz4kd 补丁
         if: inputs.lz4kd_enable
