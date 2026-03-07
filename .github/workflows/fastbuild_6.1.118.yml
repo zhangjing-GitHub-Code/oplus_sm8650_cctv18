@@ -405,7 +405,7 @@ jobs:
           CONFIG_ZSWAP_ZPOOL_DEFAULT="zbud"
           E
           echo 拉黑Hyrbidswap...
-          patch -p1 <<EOF || true
+          patch -p1 <<EOF
 diff --git a/kernel/module/main.c b/kernel/module/main.c
 index ddd124056..a9c7aded0 100644
 --- a/kernel/module/main.c
