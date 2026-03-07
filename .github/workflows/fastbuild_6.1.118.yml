@@ -405,12 +405,11 @@ jobs:
           CONFIG_ZSWAP_ZPOOL_DEFAULT="zbud"
           E
           echo 拉黑Hyrbidswap...
-          patch -p1 <<EOF
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index ddd124056..a9c7aded0 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -2301,10 +2301,46 @@ int __weak module_frob_arch_sections(Elf_Ehdr *hdr,
+          echo "
+diff --color -ur a/kernel/module/main.c b/kernel/module/main.c
+--- a/kernel/module/main.c	2026-03-07 14:11:26.000000000 +0800
++++ b/kernel/module/main.c	2026-03-07 14:07:56.000000000 +0800
+@@ -2301,10 +2301,47 @@
  
  /* module_blacklist is a comma-separated list of module names */
  static char *module_blacklist;
@@ -439,6 +438,7 @@ index ddd124056..a9c7aded0 100644
 +	static const char *const hardcoded_blacklist[] = {
 +		"oplus_exit_mm_optimize",
 +		"oplus_bsp_hybridswap_zram",
++		"oplus_bsp_zram_opt",
 +		NULL
 +	};
 +
@@ -457,7 +457,7 @@ index ddd124056..a9c7aded0 100644
  
  	if (!module_blacklist)
  		return false;
-EOF
+          "|patch -p1
 
       - name: 应用 lz4kd 补丁
         if: inputs.lz4kd_enable
